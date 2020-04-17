@@ -1,4 +1,9 @@
 ﻿#include <iostream>
+#include <vector>
+#include <string>
+
+
+using namespace std;
 
 template <typename T>
 class binaryTree
@@ -17,6 +22,8 @@ private:
 	void exactPull(node*, int);
 	bool exactSeatch(int, node*);
 	int exactDepth(node*);
+	string exactLeaves(node* current, string& res);
+
 
 //
 //
@@ -29,13 +36,13 @@ public:
       void push(T);
       void pull(T);
       int depth();
-//    vector<T> ToList();
+	  string leaves();
       bool search(T);	  
 };
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    
 }
 
 template <typename T>
@@ -170,4 +177,25 @@ bool binaryTree<T>::exactSeatch(int value, node*cur)
 	if (cur->RightSib != NULL && value >= cur->value)
 		return exactSeatch(value, cur->RightSib);
 	return false;
+}
+
+template <typename T>
+string binaryTree<T>::leaves()
+{
+	string res="";
+	if (root)
+		helper(root);
+	return res;
+}
+
+
+template <typename T>
+string binaryTree<T>::exactLeaves(node* current,string& res)
+{
+		if (current->left_child)
+			exactLeaves(current->left_child,res);
+		if (current->right_child,res)
+			exactLeaves(current->right_child,res);
+		if (!current->left_child && !current->right_child,res)
+			res += current.value + " ";
 }
